@@ -1,0 +1,86 @@
+// Placeholders
+%valign
+    position: relative
+    top: 50%
+    transform: translateY(-50%)
+    
+    
+// Mixins
+@mixin box-sizing($type) 
+  -webkit-box-sizing: $type
+     -moz-box-sizing: $type
+          box-sizing: $type
+
+
+@mixin linx ($link, $visit, $hover, $active) 
+  a 
+    color: $link
+    &:visited
+      color: $visit
+    
+    &:hover
+      color: $hover
+    
+    &:active
+      color: $active
+    
+    
+@mixin valign ($this)
+    @extend %valign
+    
+    
+  
+// basic grid info
+* 
+    margin: 0
+    padding: 0
+    @include box-sizing(border-box)
+
+// clearfix
+.row 
+    margin: 0 auto
+    max-width: $grid-width
+    //max-width: $grid-flex
+    
+    &:after 
+        content: ""
+        display: table
+        clear: both
+    
+
+// Attribute selector
+[class*='small-'], [class*='medium-'], [class*='large-']
+    float: left
+    padding: $grid-padding
+    
+    
+//Add end class to increase functionality
+[class*='small-'].end:last-child, 
+[class*='medium-'].end:last-child, 
+[class*='large-'].end:last-child 
+    float: right
+
+
+
+// grid widths
+@media only screen 
+    @for $i from $start through $columns 
+        .small-#{$i} 
+            width: ($i / $columns) * 100 + %
+            height: inherit
+        
+    
+@media only screen and (min-width: $small) 
+    @for $i from $start through $columns 
+        .medium-#{$i} 
+            width: ($i / $columns) * 100 + %
+            height: inherit
+        
+
+@media screen and (min-width: $medium) 
+    @for $i from $start through $columns 
+        .large-#{$i} 
+            width: ($i / $columns) * 100 + %
+            height: inherit
+    
+
